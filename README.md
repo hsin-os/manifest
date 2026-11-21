@@ -9,7 +9,7 @@ based on Miku UI AOSP-Based Project.
 
 
 ```shell
-repo init -u https://github.com/Miku-UI/manifesto -b Vampire_v3 --git-lfs
+repo init -u https://github.com/hsin-os/manifest.git -b Moon_fox --git-lfs
 ```
 
 
