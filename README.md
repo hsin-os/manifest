@@ -26,6 +26,6 @@ repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
 # Lunch
 lunch hsin_[codename]-[release]-[build type]
 
-# Make a diva !
-m bacon
+# Make hsin !
+m hsin
 ```
