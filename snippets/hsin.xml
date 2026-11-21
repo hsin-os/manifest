@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+  <remote  name="hsin"
+	   revision="Moon_fox"
+	   fetch="https://github.com/hsin-os"
+	   review="https://android-review.googlesource.com/" />
+
+  <!-- hsin -->
+  <project path="frameworks/base" name="platform_frameworks_base" remote="Moon_fox" />
+
+  <project path="vendor/miku" name="platform_vendor_miku" remote="miku" />
+  <project path="vendor/MikuSettings" name="platform_vendor_MikuSettings" remote="miku" />
+
+  <project path="packages/apps/Settings" name="platform_packages_apps_Settings" remote="miku" />
+  <project path="packages/apps/Launcher3" name="platform_packages_apps_Launcher3" remote="miku" />
+
+  <project path="device/miku/sepolicy" name="platform_device_miku_sepolicy" remote="miku" />
+
+  <!-- Build -->
+  <project path="build/make" name="platform_build" remote="miku" >
+    <copyfile src="core/root.mk" dest="Makefile" />
+    <linkfile src="CleanSpec.mk" dest="build/CleanSpec.mk" />
+    <linkfile src="buildspec.mk.default" dest="build/buildspec.mk.default" />
+    <linkfile src="core" dest="build/core" />
+    <linkfile src="envsetup.sh" dest="build/envsetup.sh" />
+    <linkfile src="target" dest="build/target" />
+    <linkfile src="tools" dest="build/tools" />
+  </project>
+  <project path="build/soong" name="platform_build_soong" remote="miku" >
+    <linkfile src="root.bp" dest="Android.bp" />
+    <linkfile src="bootstrap.bash" dest="bootstrap.bash" />
+  </project>
+  
+</manifest>

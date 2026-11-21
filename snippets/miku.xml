@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+  <remote  name="miku"
+	   revision="Vampire_v3"
+	   fetch="https://github.com/Miku-UI"
+	   review="https://android-review.googlesource.com/" />
+	
+  <remote  name="mind"
+	   revision="vic"
+	   fetch="https://gitlab.com/MindTheGapps" />
+ 
+  <!-- Art -->
+  <project path="art" name="platform_art" remote="miku" />
+
+  <!-- Bionic -->
+  <project path="bionic" name="platform_bionic" remote="miku" />
+
+  <!-- Bootable -->
+  <project path="bootable/recovery" name="platform_bootable_recovery" remote="miku" />
+
+  <!-- External -->
+  <project path="external/dtc" name="platform_external_dtc" groups="pdk" remote="miku" />
+  <project path="external/dwarves" name="platform/external/dwarves" remote="aosp" revision="ea353ab8f68b23b5b5df9048beec26e3e3660680" />
+  <project path="external/e2fsprogs" name="platform_external_e2fsprogs" remote="miku" />
+  <project path="external/gptfdisk" name="platform_external_gptfdisk" remote="miku" />
+  <project path="external/mksh" name="platform_external_mksh" remote="miku" revision="Udon" />
+  <project path="external/tinycompress" name="platform_external_tinycompress" remote="miku" />
+  <project path="external/libevdev" name="platform_external_libevdev" remote="miku" revision="snowland" />
+  <project path="external/tinyxml" name="platform_external_tinyxml" remote="miku" revision="snowland" />
+
+  <!-- Framework -->
+  <project path="frameworks/av" name="platform_frameworks_av" remote="miku" />
+  <project path="frameworks/native" name="platform_frameworks_native" remote="miku" />
+  <project path="frameworks/opt/telephony" name="platform_frameworks_opt_telephony" remote="miku" />
+
+  <!-- General -->
+  <project path="vendor/settings" name="platform_vendor_settings" remote="miku" revision="snowland" />
+
+  <!-- Gcc -->
+  <project path="prebuilts/gcc/linux-x86/aarch64/aarch64-elf" name="platform_prebuilts_gcc_linux-x86_aarch64_aarch64-elf" remote="miku" revision="snowland" clone-depth="1" />
+  <project path="prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9" name="platform_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9" remote="miku" revision="snowland" clone-depth="1" />
+  <project path="prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9" name="platform_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9" remote="miku" revision="snowland" clone-depth="1" />
+
+  <!-- Hardware -->
+  <project path="hardware/libhardware" name="platform_hardware_libhardware" remote="miku" />
+  <project path="hardware/interfaces" name="platform_hardware_interfaces" remote="miku" />
+  <project path="hardware/miku/compat" name="platform_hardware_miku_compat" remote="miku" />
+
+  <!-- KernelSU -->
+  <project path="kernel/KernelSU" name="platform_kernel_KernelSU" remote="miku" />
+
+  <!-- Kernel -->
+  <project path="kernel/configs" name="platform_kernel_configs" remote="miku" />
+
+  <!-- Packages -->
+  <project path="packages/apps/MikuUILyricsStubDummy" name="platform_packages_apps_MikuUILyricsStubDummy" remote="miku" revision="master" />
+  <project path="packages/apps/ThemePicker" name="platform_packages_apps_ThemePicker" remote="miku" />
+  <project path="packages/apps/WallpaperPicker2" name="platform_packages_apps_WallpaperPicker2" remote="miku" />
+  <project path="packages/modules/Bluetooth" name="platform_packages_modules_Bluetooth" remote="miku" />
+  <project path="packages/modules/Connectivity" name="platform_packages_modules_Connectivity" remote="miku" />
+  <project path="packages/modules/NetworkStack" name="platform_packages_modules_NetworkStack" remote="miku" />
+  <project path="packages/modules/Permission" name="platform_packages_modules_Permission" remote="miku" />
+  <project path="packages/inputmethods/Gboard" name="platform_packages_inputmethods_Gboard" remote="miku" revision="Vampire" />
+
+  <!-- Prebuilts -->
+  <project path="prebuilts/kernel-build-tools" name="kernel/prebuilts/build-tools" clone-depth="1" remote="aosp" revision="refs/tags/android-13.0.0_r0.65" />
+  <project path="prebuilts/tools-miku" name="platform_prebuilts_tools-miku" remote="miku" revision="snowland" />
+  <project path="prebuilts/gcc/linux-x86/aarch64/aarch64-linux-gnu-6.4.1" name="platform_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-gnu-6.4.1" remote="miku" revision="snowland" clone-depth="1" />
+
+  <!-- Providers -->
+  <project path="packages/providers/DownloadProvider" name="platform_packages_providers_DownloadProvider" remote="miku" /> 
+
+  <!-- Proton -->
+  <project path="prebuilts/clang/host/linux-x86/clang-proton" name="proton-clang" remote="miku" revision="snowland" clone-depth="1" /> 
+
+  <!-- System -->
+  <project path="system/bpf" name="platform_system_bpf" remote="miku" />
+  <project path="system/core" name="platform_system_core" remote="miku" />
+  <project path="system/nfc" name="platform_system_nfc" remote="miku" />
+  <project path="system/sepolicy" name="platform_system_sepolicy" remote="miku" />
+  <project path="system/vold" name="platform_system_vold" remote="miku" />
+
+  <!-- Themes -->
+  <project path="packages/overlays/Themes" name="platform_packages_overlays_Themes" remote="miku" revision="TDA" />
+	
+  <!-- GAPPS -->
+  <project path="vendor/gapps" name="vendor_gapps" remote="mind" />
+
+</manifest>
