@@ -191,6 +191,5 @@
     <remove-project name="kernel/prebuilts/common-modules/virtual-device/mainline/x86-64" />
   
     <!-- CTS Test Suite -->
-    <remove-project name="platform/cts" />
     
 </manifest>
