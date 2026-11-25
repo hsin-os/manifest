@@ -130,10 +130,8 @@
     <remove-project name="platform/hardware/ti/am57x" />
     <remove-project name="platform/hardware/broadcom/libbt" />
     <remove-project name="platform/hardware/broadcom/wlan" />
-    <remove-project name="platform/hardware/google/aemu" />
     <remove-project name="platform/hardware/google/camera" />
     <remove-project name="platform/hardware/google/gchips" />
-    <remove-project name="platform/hardware/google/gfxstream" />
     <remove-project name="platform/hardware/google/graphics/common" />
     <remove-project name="platform/hardware/google/graphics/gs101" />
     <remove-project name="platform/hardware/google/graphics/gs201" />
