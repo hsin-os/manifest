@@ -25,3 +25,11 @@ Internal notes on what is renamed, what is intentionally left as "miku", and wha
 - Miku forks still pulled by snippets/miku.xml may contain Miku strings: ThemePicker, WallpaperPicker2, Themes, Gboard, vendor/settings, system/*, frameworks/{av,native,opt/telephony}. Grep a built image for "miku" to find real hits.
 - Launcher3, build, soong licenses/branding not audited yet.
 - Booted-device check of Settings > About phone (version/type/maintainer rows).
+
+## Update 2026-11-25
+- `platform_build` now uses `HSIN_BUILD` (set by `lunch hsin_<device>`), `vendor/hsin/config/BoardConfigHsin.mk`, `device/hsin/sepolicy/...`, `vendor/hsin/build/core/*`. Before this, a `hsin_*` product never loaded vendor/hsin config or sepolicy.
+- `ro.hsin.device` is emitted by buildinfo.sh from `$HSIN_DEVICE`; nothing sets it yet (device trees / vendor/hsin should).
+- vendor/settings is now `hsin-os/platform_vendor_settings` (package `com.hsin.settings`), pulled from hsin.xml.
+- `versioning.mk` vars are HSIN_* (HSIN_GAPPS, HSIN_MASTER, TARGET_HSIN_BUILD_VARIANT); no MIKU_* fallbacks.
+- Checked and clean of Miku: platform_build_soong, platform_packages_apps_Launcher3 (only Estonian false positives).
+- Not forked, not inspected (Miku-UI org not readable from here): frameworks/{native,av,opt/telephony}, hardware/{libhardware,interfaces,miku/compat}, system/*, packages/apps/{ThemePicker,WallpaperPicker2}, packages/overlays/Themes, packages/inputmethods/Gboard, art, bionic, bootable/recovery, external/*, prebuilts/tools-miku.
