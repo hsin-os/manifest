@@ -1,0 +1,46 @@
+# Fix ledger: what was changed to get the first CI build running
+
+Purpose: when the build works, move each fix to its proper home and drop the CI workaround.
+"Now" = where the fix lives today. "Proper home" = where it should end up.
+Update this file with every new fix.
+
+## A. kitsunee02/miku-blossom (CI repo, branch main)
+
+| Fix | Commit | Why | Proper home |
+|---|---|---|---|
+| Emptied `manifests/15.0/remove.xml` (restored abi-dumps, kernel prebuilts, developers/build, remoteexecution-client, mingw) | bf65486, efd167d | Soong fails on undefined modules (`vndk_abi_dump_zip`, `libwinpthread`, ...) | Stay in CI (nothing to move); keep removals out of the Hsin manifest too |
+| `manifests/15.0/hsin.xml`: dropped local re-adds and the Car removal | f21f904 | Hsin `snippets/remove.xml` no longer removes them | Done in manifest; delete the CI file if empty |
+| `manifests/15.0/hsin.xml`: **AOSP Launcher3 replaces the Hsin Launcher3** | 747f6bb | Hsin/Miku Launcher3 needs `org.lineageos.platform` (lineage-sdk) | Fork a Launcher3 without lineage deps into hsin-os, or add lineage-sdk. Decide before release |
+| `patches/15.0/fixups.sh`: remove `hardware/google/pixel/kernel_headers` | f58bac8 | Duplicate `qti_kernel_headers` (also defined by vendor/hsin) aborts Kati | vendor_hsin: delete the Qcom stub `qti_kernel_headers` in `build/soong/Android.bp`, or Hsin manifest/patch. Re-check once Qcom is fully removed |
+| `fixups.sh` Lineage removals (`hardware/lineage/interfaces/sensors`, `biometrics/fingerprint`, `power-libperfmgr`, `hardware/interfaces/biometrics/fingerprint/2.1/default`) | earlier | Conflict with the blossom device tree | Hsin manifest `remove-project`, if they are whole projects |
+| `scripts/sync.sh`: fewer parallel jobs, retry/back-off on HTTP 429 | abb69d6 | Google git rate limit | CI only |
+| `scripts/mem-guard.sh`, `build-stage.sh` (cgroup `memory.high`, memory trace), check/stage deadlines, concurrency | 74a9289, eb81e52, df364c1 | 15 GB runner thrashed during Soong; lost runner | CI only |
+| `scripts/trim.py` + `manifests/15.0/trim.list` + hook in `prune.sh` | 71d5bf2 | Smaller Soong graph (removes only unreferenced dirs) | CI only. Review `trim-report.txt` for what stays |
+| `scripts/find-dupes.py` + check.yml step | cc3f0d8 | Kati stops at the first duplicate module | CI only (debug aid) |
+
+## B. hsin-os repos (branch Moon_fox)
+
+| Repo | Fix | Commit | Why |
+|---|---|---|---|
+| manifest | `snippets/remove.xml` reduced to what Miku replaces | 18845f2 | The extra removals broke Soong |
+| manifest | restored `platform/cts`, `hardware/google/aemu`, `gfxstream`; `vendor/settings` fork added | 4a85881 and earlier | undefined modules; Settings library |
+| platform_build_soong | fsgen: pin `lib/` modules to 32-bit, `lib64/` to 64-bit | 54e3573 | packaging conflicts for blobs present in both |
+| platform_build_soong | fsgen: route those modules to `multilib.lib32/lib64.high_priority_deps` | 2706052 | flat deps only pack the first target |
+| platform_build_soong | `soong_build` sets GC percent and memory limit itself | b2131e8 | ninja starts it with `env -i`, so GOGC/GOMEMLIMIT never arrive |
+| platform_frameworks_base | removed the empty 200dp QS header spacer | 7d5b5cf8a | leftover from the Miku banner |
+| platform_build / vendor_hsin / settings / sepolicy / HsinSettings | the Miku to Hsin rebrand | earlier | see REBRAND_NOTES.md |
+
+## C. Device and vendor trees (kitsunee02, branch hsin)
+
+| Repo | Fix | Commit | Why |
+|---|---|---|---|
+| device_xiaomi_blossom | `RevampedFMRadio` package removed | f1d80d8 | non-existent module in PRODUCT_PACKAGES |
+| device_xiaomi_blossom | `configs/cgroups.json` from the working A15 ROM; device.mk points to it | 1c4bef0, 3e2f733 | `system/core/.../cgroups_30.json` does not exist |
+
+## D. Open questions to revisit
+- Launcher3: AOSP in CI vs the Hsin fork (needs lineage-sdk).
+- `qti_kernel_headers` ownership once Qcom is fully removed.
+- Whether the `lib`/`lib64` fsgen fix is the right long-term shape (it is in the soong fork now).
+- `HSIN_DEVICE` is not set anywhere; `ro.hsin.device` is empty.
+- `version_util.mk:182: Argument missing` / "Device blossom not found" noise in the envsetup phase.
+- Unforked Miku repos: bootable/recovery, packages/overlays/Themes (navbar overlay name in NavigationBarInflaterView).
