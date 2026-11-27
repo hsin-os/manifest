@@ -46,7 +46,7 @@ Update this file with every new fix.
 - Unforked Miku repos: bootable/recovery, packages/overlays/Themes (navbar overlay name in NavigationBarInflaterView).
 
 ## Launcher3 QuickStep: injectDoublePress
-- Error: `SystemUiProxy is not abstract and does not override abstract method injectDoublePress(int) in ISystemUiProxy` (Launcher3QuickStepLib javac).
+- Error: `SystemUiProxy is not abstract and does not override abstract method injectDoublePress(int)` then `injectLongPress(int)` (javac reports one at a time) (Launcher3QuickStepLib javac).
 - Why: Hsin/Miku SystemUI's ISystemUiProxy.aidl added `injectDoublePress`; stock AOSP Launcher3 (swapped in for the Miku launcher) lacks it.
 - Fix now: miku-blossom `patches/15.0/fixups.sh` inserts a forwarding method into `quickstep/.../SystemUiProxy.java` when missing.
 - Proper home: a commit in a hsin-os fork of platform/packages/apps/Launcher3 (then drop the fixups block), or move to the Hsin Launcher decision.
