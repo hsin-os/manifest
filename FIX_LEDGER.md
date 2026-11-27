@@ -50,3 +50,12 @@ Update this file with every new fix.
 - Why: Hsin/Miku SystemUI's ISystemUiProxy.aidl added `injectDoublePress`; stock AOSP Launcher3 (swapped in for the Miku launcher) lacks it.
 - Fix now: miku-blossom `patches/15.0/fixups.sh` inserts a forwarding method into `quickstep/.../SystemUiProxy.java` when missing.
 - Proper home: a commit in a hsin-os fork of platform/packages/apps/Launcher3 (then drop the fixups block), or move to the Hsin Launcher decision.
+
+## vendor sepolicy: unknown type iso9660
+- Error: `device/mediatek/sepolicy_vndr/basic/non_plat/vold.te:11: unknown type iso9660` (vendor_sepolicy.cil.raw).
+- Why: Jayedkhan800/android_device_mediatek_sepolicy_vndr (lineage-22) keeps `allow vold iso9660:filesystem unmount;`; AOSP 15 has no iso9660 type. LineageOS's own sepolicy_vndr dropped it.
+- Fix now: miku-blossom fixups.sh deletes the line.
+- Proper home: fork that repo into hsin-os (or move to the device tree) and delete the rule there.
+
+## CI: keep going + resumable failures
+- build-stage.sh passes `-k` (ninja keeps going, all errors in one pass); failed stages now pack out/ so a resume run continues from the failure point.
