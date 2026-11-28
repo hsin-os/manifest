@@ -59,3 +59,9 @@ Update this file with every new fix.
 
 ## CI: keep going + resumable failures
 - build-stage.sh passes `-k` (ninja keeps going, all errors in one pass); failed stages now pack out/ so a resume run continues from the failure point.
+
+## OTA: update_dynamic_partitions failed (error 25) in OrangeFox
+- Symptom: `assert failed: update_dynamic_partitions(op_list, unsparse_super_empty.img)` error 25 (OrangeFox R11.1, Redmi 9A dandelion). Super size matches BOARD_SUPER_PARTITION_SIZE; nothing mounted; op list normal.
+- Why: our zip passed unsparse_super_empty.img (2-arg form, rewrites super metadata). The working Miku zip has no super_empty image (1-arg form). The image is built by default when dynamic partitions are on and PRODUCT_BUILD_SUPER_EMPTY_IMAGE is unset.
+- Fix now: miku-blossom fixups.sh appends `PRODUCT_BUILD_SUPER_EMPTY_IMAGE := false` after PRODUCT_BUILD_SUPER_PARTITION in device/xiaomi/blossom/device.mk.
+- Proper home: device tree device.mk (device_xiaomi_blossom, branch hsin), then remove the fixups block.
