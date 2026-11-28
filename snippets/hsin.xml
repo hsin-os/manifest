@@ -18,6 +18,8 @@
 
   <project path="device/hsin/sepolicy" name="platform_device_hsin_sepolicy" remote="hsin" />
 
+  <project path="packages/overlays/Themes" name="platform_packages_overlays_Themes" remote="hsin" />
+
   <!-- Build -->
   <project path="build/make" name="platform_build" remote="hsin" >
     <copyfile src="core/root.mk" dest="Makefile" />
