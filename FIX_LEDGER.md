@@ -65,3 +65,10 @@ Update this file with every new fix.
 - Why: our zip passed unsparse_super_empty.img (2-arg form, rewrites super metadata). The working Miku zip has no super_empty image (1-arg form). The image is built by default when dynamic partitions are on and PRODUCT_BUILD_SUPER_EMPTY_IMAGE is unset.
 - Fix now: miku-blossom fixups.sh appends `PRODUCT_BUILD_SUPER_EMPTY_IMAGE := false` after PRODUCT_BUILD_SUPER_PARTITION in device/xiaomi/blossom/device.mk.
 - Proper home: device tree device.mk (device_xiaomi_blossom, branch hsin), then remove the fixups block.
+
+## Stage 12 module errors (Soong) — Lineage app dependencies
+- `kotlin-parcelize-compiler-plugin` (Glimpse, Twelve): AOSP `external/kotlinc` lacks it → swapped to LineageOS `android_external_kotlinc` in `snippets/lineage.xml`. Proper home: manifest (already there).
+- `org.lineageos.lib.phone` / `spn-info` (Dialer): copied minimal module into `vendor/hsin/lineage-lib`. Proper home: vendor/hsin (keep).
+- Glimpse, Twelve, Jelly, Etar, ExactCalculator, Recorder added to `vendor/hsin/build/product/hsin_product.mk`.
+## UI/branding
+- Removed Hsin Home Taskbar setting (vendor/hsinsettings); gesture handle radius 3dp / width 120dp (frameworks/base SystemUI dimens); Miku effect sounds replaced (frameworks/base data/sounds).
